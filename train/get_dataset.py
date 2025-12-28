@@ -1,4 +1,5 @@
 from dataset import MRNetDataset, BRATSDataset, ADNIDataset, DUKEDataset, LIDCDataset, DEFAULTDataset
+from dataset.fomo60k import FOMO60kDataset
 from torch.utils.data import WeightedRandomSampler
 
 
@@ -37,6 +38,21 @@ def get_dataset(cfg):
             root_dir=cfg.dataset.root_dir, augmentation=True)
         val_dataset = LIDCDataset(
             root_dir=cfg.dataset.root_dir, augmentation=True)
+        sampler = None
+        return train_dataset, val_dataset, sampler
+    if cfg.dataset.name == 'FOMO60k':
+        # Train dataset with augmentation
+        train_dataset = FOMO60kDataset(
+            root_dir=cfg.dataset.root_dir,
+            imgtype=cfg.dataset.imgtype,
+            augmentation=False
+        )
+        # Validation dataset without augmentation
+        val_dataset = FOMO60kDataset(
+            root_dir=cfg.dataset.root_dir,
+            imgtype=cfg.dataset.imgtype,
+            augmentation=False
+        )
         sampler = None
         return train_dataset, val_dataset, sampler
     if cfg.dataset.name == 'DEFAULT':

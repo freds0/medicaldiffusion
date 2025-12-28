@@ -1,0 +1,5 @@
+# Configuration for FOMO60k Dataset
+name: FOMO60k
+root_dir: ../medgemma/FOMO-MRI/fomo-60k
+image_channels: 1
+imgtype: flair
